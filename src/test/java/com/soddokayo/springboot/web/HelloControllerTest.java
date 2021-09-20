@@ -1,4 +1,4 @@
-// 61~62p.
+// 61~62p., 75~76p.
 package com.soddokayo.springboot.web;
 
 import org.junit.jupiter.api.Test;                  // 거지같은 JUnit4에서 JUnit5로의 migrating 1
@@ -9,8 +9,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension; // 이렇게 바꾸나? 맞네
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+
+import static org.hamcrest.Matchers.is; // 75p.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath; // 75p.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class) // 1, JUnit4 to 5
@@ -27,5 +30,20 @@ public class HelloControllerTest {
         mvc.perform(get("/hello"))  // 5
                 .andExpect(status().isOk())  // 6
                 .andExpect(content().string(hello)); // 7
+    }
+
+    // 75p.
+    @Test
+    public void helloDto가_리턴된다() throws Exception {
+        String name = "hello";
+        int amount = 1000;
+
+        mvc.perform(
+                get("/hello/dto")
+                        .param("name", name)    // 1
+                        .param("amount", String.valueOf(amount)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is(name)))    // 2
+                .andExpect(jsonPath("$.amount", is(amount)));
     }
 }
