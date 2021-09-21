@@ -13,7 +13,7 @@ import javax.persistence.Id;
 
 @Getter // 6, 클래스 내 모든 필드에 대해 Getter method 자동생성
 // ** Setter가 없음! **
-// -> Entity Class는 기본적으로 Setter없이 생성자를 통해 값 채운 후 변경 필요할 땐 적절한 public 메소드 호출로!
+// -> Entity Class는 기본적으로 Setter없이 생성자를 통해 값 채운 후 변경 필요할 땐 적절한 public 메소드 호출로! **
 @NoArgsConstructor // 5, 기본 생성자 자동추가 (public Posts() {})
 @Entity // 1
 public class Posts {    // Entity Class (실제 DB 테이블과 매칭되어, 이 객체를 수정하면 DB에 반영이된다구!)
